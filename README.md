@@ -6,4 +6,4 @@ Fernando, Juanjo y Albeatman.
 
 Reniones:
 
-* [Día 1](dia-001/) - *20/12/2016*
+* [Día 1](dia-001/README.md) - *20/12/2016*

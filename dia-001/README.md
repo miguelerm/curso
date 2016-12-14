@@ -24,14 +24,14 @@ Compose][docker-compose] y [Docker Swarm][docker-swarm].
 que podemos ejecutar aplicaciones sin que estas afecten a otras aplicaciones o
 al sistema operativo.
 
-**Container Image:**: La imagen de un contenedor posee el sistema operativo
+**Container Image:** La imagen de un contenedor posee el sistema operativo
 base, la aplicación que se va a ejecutar y todas las dependencias de esta
 aplicación.
 
-**Container Registry:**: Es un repositorio desde el cual se pueden descargar
+**Container Registry:** Es un repositorio desde el cual se pueden descargar
 imagenes que se pueden reutilizar en nuestras aplicaicones.
 
-**Docker Engine:**: Es la plataforma que permite ejecutar y gestionar los
+**Docker Engine:** Es la plataforma que permite ejecutar y gestionar los
 contenedores de docker.
 
 **Dockerfile:** Es un archivo que nos permite especificar todos los

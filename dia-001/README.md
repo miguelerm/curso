@@ -55,6 +55,110 @@ Windows 7 podes instalar [Docker Toolbox for Windows][DockerTools4Win].
 [DockerTools4Win]: https://www.docker.com/products/docker-toolbox
 [HyperV]: https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install
 
+### Demo
+
+#### Servidor Web Estático:
+
+Iniciar el contenedor de docker basado en nginx apuntando a la carpeta de un 
+sitio estático.
+
+```sh
+docker run --name my-site -p 8989:80 -v c:/projects/mike/curso/dia-001/static-site:/usr/share/nginx/html:ro -d nginx
+```
+
+atachando al container de docker para ejecutar comandos en el bash.
+
+```sh
+docker exec -it my-site /bin/bash
+```
+
+#### Dockerfile para un sitio estático:
+
+Creacion del Dockerfile con este contenido en la carpeta static-site-a:
+
+```txt
+FROM nginx
+COPY html /usr/share/nginx/html
+```
+
+Construcción de la imagen basada en ese dockerfile (ejecutar comando en la
+misma carpeta que el Dockerfile):
+
+```sh
+docker build -t mi-sitio-web .
+```
+
+Ejecución de un nuevo contenedor basado en la imagen creada.
+
+```sh
+docker run --name mi-sitio-web-a -p 8888:80 -d mi-sitio-web
+```
+
+#### Dockerfile para una aplicación con NodeJS:
+
+ver aplicacion en el folder `node-app`.
+
+El dockerfile se basa en `node:onbuild` que es un container que restaura
+todas las dependencias de la aplicación y lo unico que le agrega es la
+exposición del puerto:
+
+```txt
+FROM node:onbuild
+EXPOSE 80
+```
+
+Construir la imagen:
+
+```sh
+docker build -t mi-node-app .
+```
+
+```sh
+docker run -d -p 8889:80 --name mi-node-app-a mi-node-app
+```
+
+#### Balanceo de carga del sitio estático:
+
+Crear la red virtual:
+
+```sh
+docker network create red-de-mi-sitio
+```
+
+verificar que se creó correctamente la red:
+
+```sh
+docker network inspect red-de-mi-sitio
+```
+
+Iniciando los dos nodos:
+
+```sh
+docker run --net red-de-mi-sitio --name nodo-a -d mi-node-app
+docker run --net red-de-mi-sitio --name nodo-b -d mi-node-app
+```
+
+Configuración del Load Balancer para nginx:
+
+```txt
+http {
+    upstream mi-sitio {
+        server nodo-a;
+        server nodo-b;
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://mi-sitio;
+        }
+    }
+}
+```
+
+
+
 ### Referencias
 
 * [Windows Containers Quick

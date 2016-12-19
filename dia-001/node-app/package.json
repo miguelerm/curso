@@ -1,0 +1,15 @@
+{
+  "name": "node-app",
+  "version": "1.0.0",
+  "description": "Aplicación de ejemplo para el curso de Docker y Node",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Miguel Roman <miguelerm@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "jade": "^1.11.0"
+  }
+}

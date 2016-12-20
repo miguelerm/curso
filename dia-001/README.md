@@ -3,16 +3,18 @@
 Este día veremos una introducción a [Docker][docker], cómo instalarlo y ponerlo
 en marcha. Para esto levantaremos un servidor web de pruebas con [nginx][nginx].
 
-Terminaremos con una introducción a [Angular 2][ng2] para lo que nos apoyaremos
-en Docker para configurar nuestro ambiente de desarrollo y utilizaremos el
-servidor web *nginx* para crear nuestro ambiente de producción.
+Terminaremos con una introducción a [NodeJs][node] para lo que nos apoyaremos en
+Docker para configurar nuestro ambiente de desarrollo y utilizaremos el servidor
+web *nginx* para crear nuestro ambiente de producción que básicamente será
+implementar un Load Balancer entre dos nodos que estarán sirviendo la aplicación
+Node.
 
 Quedará pendiente para los siguientes días empezar a trabar con [Docker
 Compose][docker-compose] y [Docker Swarm][docker-swarm].
 
 [docker]: https://www.docker.com/
 [nginx]: http://nginx.org/
-[ng2]: https://angular.io/
+[node]: https://nodejs.org/
 [docker-compose]: https://docs.docker.com/compose/
 [docker-swarm]: https://docs.docker.com/engine/swarm/
 
@@ -63,7 +65,7 @@ Iniciar el contenedor de docker basado en nginx apuntando a la carpeta de un
 sitio estático.
 
 ```sh
-docker run --name my-site -p 8989:80 -v c:/projects/mike/curso/dia-001/static-site:/usr/share/nginx/html:ro -d nginx
+docker run --name my-site -p 8989:80 -v c:/users/mike/projects/curso/dia-001/static-site:/usr/share/nginx/html:ro -d nginx
 ```
 
 atachando al container de docker para ejecutar comandos en el bash.
@@ -157,7 +159,12 @@ http {
 }
 ```
 
+Ejecutar nginx para utilizar el archivo de configuración para
+balanceo de cargas.
 
+```sh
+docker run --net red-de-mi-sitio --name proxy-server -p 8890:80 -v c:/users/mike/projects/curso/dia-001/default-nginx-balancer.conf:/etc/nginx/nginx.conf:ro -d nginx
+```
 
 ### Referencias
 

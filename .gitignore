@@ -1,1 +1,6 @@
 **/*/node_modules/
+**/*/bin/
+**/*/obj/
+**/*/.vs/
+**/*/packages/
+dia-002/Demos/build/app/

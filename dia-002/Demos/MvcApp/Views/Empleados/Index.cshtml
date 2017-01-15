@@ -1,0 +1,21 @@
+﻿@model MvcApp.Controllers.EmpleadosController.EmpleadoViewModel[]
+
+<h1 style="color:red">Empleados:</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var empleado in Model)
+        {
+        <tr>
+            <td>@empleado.Id</td>
+            <td>@empleado.Nombre</td>
+        </tr>
+        }
+    </tbody>
+</table>

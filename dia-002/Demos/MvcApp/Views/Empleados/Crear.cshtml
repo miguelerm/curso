@@ -1,0 +1,15 @@
+﻿@model MvcApp.Controllers.EmpleadosController.CrearEmpleadoViewModel
+
+<h2>Crear</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <label>Nombre:</label>
+        @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control" })
+    </div>
+
+    <div>
+        <button type="submit">Crear</button>
+    </div>
+}

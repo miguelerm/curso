@@ -4,9 +4,40 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>_Layout</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script>
+        $.validator.setDefaults({
+            highlight: function (element) {
+                var $elemento = $(element);
+
+                if ($elemento.hasClass("form-control")) {
+                    $elemento.closest(".form-group").addClass("has-error").addClass("has-feedback");
+                }
+                    
+
+            },
+            unhighlight: function (element) {
+                var $elemento = $(element);
+
+                if ($elemento.hasClass("form-control"))
+                    $elemento.closest(".form-group").removeClass("has-error").addClass("has-success");
+            }
+        });
+
+        $.validator.addMethod("nit", function (value, element, params) {
+            return value.endsWith("3");
+        });
+
+        $.validator.unobtrusive.adapters.addBool("nit");
+    </script>
 </head>
-    <body>
-    <div> 
+<body>
+    <div>
         <h1>Sitio</h1>
         <ul>
             <li><a href="#">Opcion 1</a></li>
@@ -14,7 +45,7 @@
             <li><a href="#">Opcion 3</a></li>
         </ul>
 
-        <div>
+        <div class="container">
             @RenderBody()
         </div>
     </div>

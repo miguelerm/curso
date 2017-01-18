@@ -5,6 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Dapper;
+using System.ComponentModel.DataAnnotations;
+using MvcApp.Properties;
+using MvcApp.Validators;
 
 namespace MvcApp.Controllers
 {
@@ -34,6 +37,13 @@ namespace MvcApp.Controllers
         [HttpPost]
         public ActionResult Crear(CrearEmpleadoViewModel model)
         {
+
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Error");
+                return View(model);
+            }
+
             using (var db = new SQLiteConnection(@"Data Source=c:\db\app.db;Version=3;"))
             {
                 db.Open();
@@ -45,7 +55,12 @@ namespace MvcApp.Controllers
 
         public class CrearEmpleadoViewModel
         {
+            [Required(ErrorMessage = "Requerido")]
+            [StringLength(100, MinimumLength = 2, ErrorMessage = "Longitud ({0}) [{1} - {2}]")]
             public string Nombre { get; set; }
+
+            [Nit]
+            public string Nit { get; set; }
         }
 
         public class EmpleadoViewModel
